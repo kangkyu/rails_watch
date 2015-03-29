@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140801192020) do
+ActiveRecord::Schema.define(version: 20140716231808) do
 
   create_table "statuses", force: true do |t|
     t.integer  "user_id"
     t.integer  "task_id"
     t.boolean  "completed"
+    t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "completed_at"
   end
 
   create_table "tasks", force: true do |t|

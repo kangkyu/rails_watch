@@ -4,6 +4,7 @@ class CreateStatuses < ActiveRecord::Migration
       t.integer :user_id
       t.integer :task_id
       t.boolean :completed
+      t.datetime :completed_at
       
       t.timestamps
     end

@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :episode
       t.datetime :date
       t.string :title
-
+      
       t.timestamps
     end
   end
