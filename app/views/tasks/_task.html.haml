@@ -5,16 +5,10 @@
     - else
       #{show_date(task.date)} :
 
-    - if task.title == "cancel"
-      %strong cancelled
-    - else
-      Ep #{task.episode} / #{task.episode + 132}
-      - if current_user
-        - if task.statuses.find_by(user_id: current_user.id).completed
-          = button_tag "w", value: false, class: "buttons"
-        - else
-          = button_tag "check", value: true, class: "buttons"
-      - if task.title
-        = link_to task.title, "https://www.youtube.com/results?search_query=런닝맨 #{task.title}&filters=playlist"
+    Ep #{task.episode}
+
+    - if current_user
+      = complete_button_tag(task)
+      = title_format(task)
 
 

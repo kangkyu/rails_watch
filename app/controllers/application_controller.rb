@@ -4,15 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by_id(session[:user_id])
   end
   helper_method :current_user
 
   def require_user
-    unless current_user
-      flash[:notice] = "You must be logged in to access this page."
-      redirect_to login_url
-    end
+    redirect_to login_url, notice: "You must be logged in to access this page." unless current_user
   end
   
 end

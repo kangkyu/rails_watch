@@ -2,15 +2,14 @@ class TasksController < ApplicationController
   before_action :require_user, except: :index
 
   def index
-    @tasks = Task.order('date').page(params[:page]).per_page(16)
+    @tasks = Task
+      .page(params[:page]).per_page(12).date_ordered
   end
 
-  def uncompleted
-    task_ids = []
-    current_user.statuses.where(completed: false).each do |status|
-      task_ids << status.task_id
-    end 
-    @tasks = Task.where(id: task_ids).order('date').page(params[:page]).per_page(12)
+  def incomplete
+    task_ids = current_user.statuses.where(completed: false).pluck(:task_id)
+    @tasks = Task.where(id: task_ids)
+      .page(params[:page]).per_page(12).date_ordered
   end
 
   def new
@@ -23,10 +22,10 @@ class TasksController < ApplicationController
       User.all.each_with_index do |user, i|
         Status.create(task_id: @task.id, user_id: user.id, completed: false)
       end
-      flash[:notice] = "The task was created."
-      redirect_to tasks_path
+      redirect_to tasks_path, notice: "The task was created."
     else
-      render 'new', notice: 'please try again different'
+      render 'new'
+      flash.now.notice = 'please try again different info'
     end
   end
 

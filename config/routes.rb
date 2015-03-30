@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   #   resources :products
   resources :tasks, except: [:show, :destroy] do
     put 'complete', on: :member
-    get 'uncompleted', on: :collection
+    get 'incomplete', on: :collection
   end
 
   get 'signup', to: 'users#new', as: 'signup'
