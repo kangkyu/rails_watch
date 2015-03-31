@@ -1,14 +1,13 @@
 .race
-  = form_tag complete_task_path(task), method: :put do
-    - if current_user
+  - if current_user
+    = form_tag complete_task_path(task), method: :put, class: task_class(task, current_user) do
       = link_to show_date(task.date), edit_task_path(task)
-    - else
-      #{show_date(task.date)} :
 
-    Ep #{task.episode}
+      Ep #{task.episode}
 
-    - if current_user
       = complete_button_tag(task)
       = title_format(task)
 
+  - else
+    #{show_date(task.date)} : Ep #{task.episode}
 

@@ -15,4 +15,12 @@ module TasksHelper
       task.title
     end
   end
+
+  def task_class(task, current_user)
+    if Status.find_by(user_id: current_user.id, task_id: task.id).completed
+      "completed"
+    else
+      "incomplete"
+    end
+  end
 end
